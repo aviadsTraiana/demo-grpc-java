@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+option java_package = "demo.example.grpc";
+option java_multiple_files = true;
+
+service RouteService{
+  rpc navigate(Coordinates) returns (Route);
+}
+
+service GeoCoding{
+  rpc getLocationCoordinate(ListOfLocations) returns (MapOfCoordinates);
+}
+
+message Coordinate{
+  int32 longitude=1;
+  int32 latitude=2;
+}
+message Coordinates{
+  repeated Coordinate coordinates=1;
+}
+message ListOfLocations{
+  repeated string locations=1;
+}
+message MapOfCoordinates{
+  map<string,Coordinate> locationsToCoordinates=1;
+}
+enum Direction{
+  UP=0;
+  down=1;
+  left=2;
+  right=3;
+}
+message Route{
+  repeated Direction direction=1;
+  string description=2;
+}
